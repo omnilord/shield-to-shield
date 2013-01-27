@@ -1,0 +1,35 @@
+#player {
+  display: none;
+  float: left;
+  position: relative;
+  z-index: 1;
+  border: 2px solid black;
+  width: 250px;
+  content: "&nbsp;";
+}
+
+#main > table {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+
+#main > table > tbody > tr > td {
+  height: 7px;
+  width: 7px;
+  background-color: gray;
+  border: 1px solid black;
+  content: "&nbsp;";
+}
+
+#main > table > tbody > tr > td.player {
+  background-color: orange;
+}
+#main > table > tbody > tr > td.wall {
+  background-color: black;
+}
+#main > table > tbody > tr > td.npc {
+  background-color: green;
+}
