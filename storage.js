@@ -1,0 +1,3 @@
+/*
+   This file works with the jStorage framework to access and save gameplay data in the localStorage
+*/
