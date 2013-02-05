@@ -1,8 +1,9 @@
 var world = {
-  "grid": $("<table></table>"),
+  "grid": undefined,
   "height": 60,
   "width": 60,
   "createGrid": function($main) {
+    this.grid = $("<table></table>");
     for (var row = 0; row < this.height; row++) {
       var $row = $("<tr></tr>");
       for (var col = 0; col < this.width; col++) {
