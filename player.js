@@ -40,8 +40,11 @@ var player = {
       if (typeof next == "undefined") {
         // ToDo: verify that we indeed are moving to a new map
         //       load that map, and place the player appropriately on the new map
-      } else if (next.hasClass("player") || next.hasClass("object") || next.hasClass("wall") || next.hasClass("npc")) {
-        // ToDo: start interaction with the object, player, or npc, if player is able, search walls for "Secrets"
+      } else if (next.hasClass("wall")) {
+        // ToDo: "Secret doors"
+        return;
+      } else if (next.hasClasses(["player", "object", "wall", "npc"])) {
+        // ToDo: start interaction with the object, player, or npc, if player is able, search for "Secrets"
       }
 
       if (typeof next != "undefined") {

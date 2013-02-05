@@ -17,6 +17,6 @@ var world = {
     return this.grid.find("tr").eq(y).find("td").eq(x);
   },
   "spawn": function(data) {
-    
+    this.grid.find("tr:eq(0) > td, tr > td:first-child, tr > td:last-child, tr:eq(59) > td").addClass("wall");
   },
 };
