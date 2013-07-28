@@ -1,5 +1,4 @@
-var player = (function(world) {
-  "world": world,
+var player = {
   "alive": true,
   "coordinates": [30, 30],
   "cell": undefined,
@@ -35,7 +34,7 @@ var player = (function(world) {
       var c = vectors[v];
       c[0] = c[0] + this.coordinates[0];
       c[1] = c[1] + this.coordinates[1];
-      var next = this.world.cell(c[0], c[1]);
+      var next = world.cell(c[0], c[1]);
 
       // make sure the player can move to the next cell
       if (typeof next == "undefined") {
@@ -60,7 +59,7 @@ var player = (function(world) {
     // The player did something to end the game.  How do you plead?
     this.alive = false;
     if (confirm("GAME OVER!\n\n"+msg+"\n\nPlay again?")) {
-      this.world.reset(this);
+      world.reset(this);
     }
   }
-})(world);
+};

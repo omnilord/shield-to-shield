@@ -20,4 +20,7 @@ var world = {
   "spawn": function(data) {
     this.grid.find("tr:eq(0) > td, tr > td:first-child, tr > td:last-child, tr:eq(59) > td").addClass("wall");
   },
+  "reset": function(player) {
+    // ToDo: whatever reset does
+  }
 };
