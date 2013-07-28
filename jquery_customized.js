@@ -11,5 +11,9 @@ $.fn.extend({
     }
     if (selectors.length == c) { return true; }
     return false;
+  },
+  hasAttr: function(attr) {
+    if (typeof attr !== 'string') return false;
+    return $(this).is('['+attr+']');
   }
 });

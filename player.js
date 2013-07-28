@@ -1,4 +1,5 @@
-var player = {
+var player = (function(world) {
+  "world": world,
   "alive": true,
   "coordinates": [30, 30],
   "cell": undefined,
@@ -34,7 +35,7 @@ var player = {
       var c = vectors[v];
       c[0] = c[0] + this.coordinates[0];
       c[1] = c[1] + this.coordinates[1];
-      var next = world.cell(c[0], c[1]);
+      var next = this.world.cell(c[0], c[1]);
 
       // make sure the player can move to the next cell
       if (typeof next == "undefined") {
@@ -43,8 +44,8 @@ var player = {
       } else if (next.hasClass("wall")) {
         // ToDo: "Secret doors"
         return;
-      } else if (next.hasClasses(["player", "object", "wall", "npc"])) {
-        // ToDo: start interaction with the object, player, or npc, if player is able, search for "Secrets"
+      } else if (next.hasClasses(["player", "object", "npc"])) {
+        // ToDo: start interaction with the object, player, or npc
         return;
       }
 
@@ -59,7 +60,7 @@ var player = {
     // The player did something to end the game.  How do you plead?
     this.alive = false;
     if (confirm("GAME OVER!\n\n"+msg+"\n\nPlay again?")) {
-      $("#reset").trigger("click");
+      this.world.reset(this);
     }
   }
-};
+})(world);
