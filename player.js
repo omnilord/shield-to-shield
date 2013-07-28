@@ -45,6 +45,7 @@ var player = {
         return;
       } else if (next.hasClasses(["player", "object", "wall", "npc"])) {
         // ToDo: start interaction with the object, player, or npc, if player is able, search for "Secrets"
+        return;
       }
 
       if (typeof next != "undefined") {
