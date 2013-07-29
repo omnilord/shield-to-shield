@@ -1,6 +1,5 @@
 var player = {
   "alive": true,
-  "coordinates": [30, 30],
   "cell": undefined,
   "stats": {
     // base stats:
@@ -27,6 +26,15 @@ var player = {
     "right": undefined,
     "tome": undefined,
     "aura": undefined
+  },
+  "spawn": function(x, y) {
+    do {
+      x = x + Math.floor(Math.random() * 3) - 1;
+      y = y + Math.floor(Math.random() * 3) - 1;
+      var next = world.cell(x, y);
+    } while (next.hasClass("wall"));
+    this.coordinates = [x, y];
+    this.step([[0, 0]]);
   },
   "step": function(vectors) {
     // establish the coordinates of the next cell and go there

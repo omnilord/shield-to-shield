@@ -15,10 +15,9 @@ jQuery(function($) {
   });
 
   $("#reset").on("click", function(ev) {
-    world.createGrid($("#main"));
+    world.spawn($("#main"), 36, 36);
+    player.spawn(Math.floor(world.width / 2), Math.floor(world.height / 2));
+    world.populate();
   }).trigger("click");
 
-  player.step([[0, 0]]);
-
-  world.spawn();
 });

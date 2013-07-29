@@ -3,7 +3,6 @@ $.fn.extend({
     var $self = $(this);
     var c = 0;
     for (var i in selectors) {
-      //console.log(all, i, selectors[i], $self.hasClass(selectors[i]))
       if ($self.hasClass(selectors[i])) {
         if (!all || typeof all == "undefined") { return true; }
         c++;
