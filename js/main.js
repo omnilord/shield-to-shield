@@ -1,7 +1,7 @@
 jQuery(function($) {
   // Control events below
 
-  $(document).on("keydown", function(ev) {
+  $(document).on('keydown', function(ev) {
     if (!player.alive) return;
     var vector = [0, 0];
     switch (ev.which) {
@@ -14,10 +14,19 @@ jQuery(function($) {
     player.step([vector]);
   });
 
-  $("#reset").on("click", function(ev) {
-    world.spawn($("#main"), 36, 36);
+  $('#reset').on('click', function(ev) {
+    world.spawn($('#main'), 20, 20);
     player.spawn(Math.floor(world.width / 2), Math.floor(world.height / 2));
     world.populate();
-  }).trigger("click");
+  }).trigger('click');
+
+  $('#light').on('click', function(ev) {
+      world.isLit = world.isLit ? false : true;
+      if (world.isLit) {
+        world.grid.find('td').toggleClass('lit', world.isLit);
+      } else {
+        player.light(player.coordinates);
+      }
+  });
 
 });

@@ -3,6 +3,7 @@ var world = {
   "rooms": [],
   "height": 0,
   "width": 0,
+  "isLit": false,
   "cell": function(x, y) {
     if (x < 0 || y < 0 || x > this.width - 1 || y > this.height - 1) { return undefined; }
     return this.grid.find("tr").eq(y).find("td").eq(x);
@@ -14,7 +15,7 @@ var world = {
     for (x = 0; x < maze.width * 2 + 1; x++) {
       var $row = $('<tr></tr>');
       for (y = 0; y < maze.height * 2 + 1; y++) {
-        var $col = $('<td></td>');
+        var $col = $('<td></td>').toggleClass('lit', this.isLit);
         if (y % 2 === 0) {
           if (x % 2 === 0 || !(y > 0 && maze.xList[(x - 1) / 2][y / 2 - 1])) {
             $col.addClass('wall');
@@ -59,7 +60,63 @@ var world = {
     } while (--m);
   },
   "populate": function() {
-    // ToDo: load all the objects and NPCs
+    // ToDo: load all the objects and NPCs, This should be outsourced to a different "items" handler
+
+    // Simple objective, find the key, find the door, leave the maze
+    // First load the door.
+    (function() {
+      do {
+        var _rnd = Math.floor(Math.random() * 4);
+        var _alt = Math.floor(Math.random() * ((_rnd % 2 === 0) ? world.height : world.width));
+        switch (_rnd) {
+          case 0:
+            var hall = [_alt, 1];
+            if (world.cell(_alt, 1).hasClass('wall')) { break; }
+            var door = world.cell(_alt, 0);
+            break;
+          case 1:
+            var hall = [1, _alt];
+            if (world.cell(1, _alt).hasClass('wall')) { break; }
+            var door = world.cell(0, _alt);
+            break;
+          case 2:
+            var hall = [_alt, (world.height - 2)];
+            if (world.cell(_alt, (world.height - 2)).hasClass('wall')) { break; }
+            var door = world.cell(_alt, (world.height - 1));
+            break;
+          case 3:
+            var hall = [(world.width - 2), _alt];
+            if (world.cell((world.width - 2), _alt).hasClass('wall')) { break; }
+            var door = world.cell((world.width - 1), _alt);
+            break;
+          default:
+        }
+      } while (!door);
+      door.removeClass('wall').addClass("door theDoor").text('X').on('addClass', function(ev, cls) {
+        if (cls.match(/player/)) {
+          if (player.gear.inventory.indexOf('theKey') != -1) {
+            $(this).text('');
+            alert("You have found your way out of the maze!  Congradulations!");
+            player.alive = false;
+          } else {
+            player.move(hall[0], hall[1]);
+            alert('You do not have the key to unlock "The Door". Please go find the key first.');
+          }
+        }
+      });
+    }());
+
+    // Next, load the key in some random deadend
+    do {
+      var cell = world.cell(Math.floor(Math.random() * (world.width - 2)) + 1, Math.floor(Math.random() * (world.height - 2)) + 1);
+      if (cell.hasClass('wall')) { continue; }
+      var key = cell.addClass('item theKey').on('addClass', function(ev, cls) {
+        if (cls.match(/player/)) {
+          $(this).removeClass('item theKey');
+          player.addItem('inventory', 'theKey');
+        }
+      });
+    } while (!key);
   },
   "reset": function() {
     // ToDo: whatever reset does

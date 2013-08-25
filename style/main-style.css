@@ -20,7 +20,7 @@
   width: 10px;
   overflow: hide;
   padding: 0;
-  background-color: gray;
+  background-color: black;
   border: 1px solid black;
   content: "&nbsp;";
   font-size: 6pt;
@@ -28,15 +28,29 @@
   text-align: center;
   vertical-align: middle;
 }
-
-#main > table > tbody > tr > td.player {
-  background-color: orange;
+#main > table > tbody > tr > td.lit {
+  background-color: grey;
 }
-#main > table > tbody > tr > td.wall {
+#main > table > tbody > tr > td.lit.wall {
   background-color: black;
 }
-#main > table > tbody > tr > td.npc {
+#main > table > tbody > tr > td.lit.npc {
   background-color: green;
+}
+#main > table > tbody > tr > td.lit.item {
+  background-color: purple;
+}
+#main > table > tbody > tr > td.lit.trap {
+  background-color: red;
+}
+#main > table > tbody > tr > td.lit.trap.disarmed {
+  background-color: brown;
+}
+#main > table > tbody > tr > td.lit.door {
+  background-color: white;
+}
+#main > table > tbody > tr > td.player {
+  background-color: orange;
 }
 
 td > .information {
